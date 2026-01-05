@@ -1,1 +1,237 @@
-<html>test</html>
+<!DOCTYPE html>
+<html lang="pt-br" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- CACHE CONTROL -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <meta name="theme-color" content="#020617">
+    <meta name="description" content="Sua Profissão - Sua biografia curta aqui.">
+    <title>Test User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FONTS: All available options imported -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Merriweather:wght@300;400;700&family=Montserrat:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&family=Oswald:wght@300;400;500;700&family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { 
+                        gold: '#F59E0B', 
+                        dark: '#020617', 
+                        surface: '#0f172a',
+                        glass: 'rgba(15, 23, 42, 0.6)'
+                    },
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    animation: { 
+                        'bounce-slow': 'bounce 3s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s ease-out forwards',
+                        'glow': 'glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }},
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' }},
+                        glow: { '0%': { boxShadow: '0 0 20px #F59E0B40' }, '100%': { boxShadow: '0 0 30px #F59E0B60, 0 0 60px #F59E0B30' }}
+                    }
+                }
+            }
+        }
+        
+        function downloadVCard() {
+            const vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:Test User\nTITLE:Sua Profissão\nNOTE:Sua biografia curta aqui.\nEND:VCARD";
+            const blob = new Blob([vcard], { type: 'text/vcard' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'contato.vcf';
+            a.click();
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+    </script>
+    <style>
+        * { -webkit-tap-highlight-color: transparent; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; }
+        
+        /* Animated Gradient Background */
+        .bg-mesh {
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -20%, #F59E0B15, transparent),
+                radial-gradient(ellipse 60% 40% at 100% 100%, #7c3aed20, transparent),
+                radial-gradient(ellipse 50% 30% at 0% 80%, #06b6d420, transparent),
+                #020617;
+            background-attachment: fixed;
+        }
+        
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        .glass-card:hover {
+            background: rgba(15, 23, 42, 0.7);
+            border-color: #F59E0B40;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), 0 0 20px #F59E0B15;
+        }
+        
+        /* Link Cards */
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+        .link-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            background: rgba(15, 23, 42, 0.7);
+            border-color: #F59E0B50;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 25px #F59E0B20;
+        }
+        .link-card:active {
+            transform: scale(0.98);
+        }
+        
+        /* Animations */
+        .animate-fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        .animate-slide-up { animation: slideUp 0.5s ease-out forwards; }
+        .animation-delay-100 { animation-delay: 100ms; }
+        
+        /* Mobile touch feedback */
+        @media (hover: none) {
+            .link-card:active, .glass-card:active {
+                transform: scale(0.97);
+                opacity: 0.9;
+            }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #F59E0B40; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-mesh text-slate-200 min-h-screen relative overflow-x-hidden selection:bg-gold selection:text-black">
+    <!-- Background Image Layer -->
+    
+    
+    <!-- Gradient Overlay -->
+    <div class="fixed inset-0 bg-gradient-to-b from-transparent via-dark/50 to-dark z-0 pointer-events-none"></div>
+
+    <main class="relative z-10 w-full max-w-md mx-auto min-h-screen flex flex-col items-center py-10 px-5">
+        
+        <!-- Top Controls -->
+        <div class="absolute top-5 right-5 flex gap-3 text-white/40">
+             <button class="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:text-white transition-colors" aria-label="Toggle theme">
+                 <i class="fa-solid fa-moon text-sm"></i>
+             </button>
+             <button class="w-9 h-9 rounded-full glass-card flex items-center justify-center hover:text-white transition-colors" aria-label="Share">
+                 <i class="fa-solid fa-share-nodes text-sm"></i>
+             </button>
+        </div>
+
+        
+        <div class="flex flex-col items-center mb-8 w-full relative animate-fade-in">
+            <div class="relative mb-5 group cursor-pointer">
+                <div class="absolute -inset-2 bg-gradient-to-r from-gold via-purple-500 to-pink-500 rounded-full blur-xl opacity-50 group-hover:opacity-80 transition duration-700 animate-pulse-slow"></div>
+                <div class="absolute -inset-1 bg-gradient-to-r from-gold to-purple-600 rounded-full opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                <img src="https://ui-avatars.com/api/?name=Test+User" class="relative w-28 h-28 rounded-full border-4 border-dark object-cover shadow-2xl ring-2 ring-white/20">
+            </div>
+            <h1 class="font-bold text-white tracking-tight mb-1 drop-shadow-lg" style="font-size: calc(1.6rem * 1)">Test User</h1>
+            <p class="text-gold font-semibold tracking-[0.15em] uppercase mb-3 drop-shadow-md" style="font-size: calc(0.7rem * 1)">Sua Profissão</p>
+            <p class="text-slate-400 text-center leading-relaxed font-light max-w-xs" style="font-size: calc(0.875rem * 1)">Sua biografia curta aqui.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 w-full mb-6 animate-fade-in animation-delay-100">
+            <button class="glass-card p-4 rounded-2xl flex flex-col items-center gap-2 group active:scale-95 transition-all duration-300">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-gold/20 transition-all duration-300">
+                    <i class="fa-solid fa-location-dot text-gold"></i>
+                </div>
+                <span class="text-xs font-medium text-slate-300">Localização</span>
+            </button>
+            <button onclick="downloadVCard()" class="glass-card p-4 rounded-2xl flex flex-col items-center gap-2 group active:scale-95 transition-all duration-300">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold/20 to-gold/5 flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-gold/20 transition-all duration-300">
+                    <i class="fa-regular fa-address-card text-gold"></i>
+                </div>
+                <span class="text-xs font-medium text-slate-300">Salvar Contato</span>
+            </button>
+        </div><div class="w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6"></div>
+        <div class="flex flex-col gap-3 w-full">
+            
+                <a href="#" target="_blank" rel="noopener" class="link-card group animate-slide-up" style="animation-delay: 0ms">
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center group-hover:bg-gold group-hover:shadow-lg group-hover:shadow-gold/30 transition-all duration-300">
+                            <i class="fa-solid fa-link text-base text-slate-300 group-hover:text-dark transition-colors"></i>
+                        </div>
+                        <span class="font-medium text-sm text-slate-100 group-hover:text-white transition-colors">Agende uma Reunião</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300"></i>
+                </a>
+            
+                <a href="#" target="_blank" rel="noopener" class="link-card group animate-slide-up" style="animation-delay: 80ms">
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center group-hover:bg-gold group-hover:shadow-lg group-hover:shadow-gold/30 transition-all duration-300">
+                            <i class="fa-solid fa-globe text-base text-slate-300 group-hover:text-dark transition-colors"></i>
+                        </div>
+                        <span class="font-medium text-sm text-slate-100 group-hover:text-white transition-colors">Meu Site Oficial</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300"></i>
+                </a>
+            
+                <a href="#" target="_blank" rel="noopener" class="link-card group animate-slide-up" style="animation-delay: 160ms">
+                    <div class="flex items-center gap-4">
+                        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center group-hover:bg-gold group-hover:shadow-lg group-hover:shadow-gold/30 transition-all duration-300">
+                            <i class="fa-brands fa-instagram text-base text-slate-300 group-hover:text-dark transition-colors"></i>
+                        </div>
+                        <span class="font-medium text-sm text-slate-100 group-hover:text-white transition-colors">Instagram</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-gold group-hover:translate-x-1 transition-all duration-300"></i>
+                </a>
+            
+        </div>
+
+        <!-- Footer Social -->
+        <footer class="mt-12 flex gap-5 text-slate-500">
+            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold hover:text-dark transition-all duration-300"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold hover:text-dark transition-all duration-300"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-gold hover:text-dark transition-all duration-300"><i class="fa-brands fa-linkedin"></i></a>
+        </footer>
+        <p class="mt-6 text-[9px] text-slate-600 uppercase tracking-widest opacity-40">Powered by Webmini</p>
+
+    </main>
+
+    <!-- Floating WhatsApp -->
+    <a href="#" target="_blank" rel="noopener" style="display: none" class="fixed bottom-5 right-5 w-14 h-14 bg-[#25D366] rounded-full shadow-xl shadow-green-900/50 flex items-center justify-center text-white text-2xl hover:scale-110 active:scale-95 transition-transform animate-glow z-50" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+</body>
+</html>
